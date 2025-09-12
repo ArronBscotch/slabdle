@@ -17,23 +17,7 @@ function cur_date() {
 	return `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
 }
 
-function getCookie(cname) {
-	let name = cname + "=";
-	let decodedCookie = decodeURIComponent(document.cookie);
-	let ca = decodedCookie.split(';');
-	for(let i = 0; i <ca.length; i++) {
-		let c = ca[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
-
-body.onload = function() {
+window.onload = function() {
 	const date_string = cur_date();
 
 	const last_play = localStorage.getItem("last");
@@ -42,8 +26,8 @@ body.onload = function() {
 		const last = JSON.parse(last_play);
 
 		if (last.last_day == date_string) {
-			commit.style.visibility = hidden;
-			copy.style.visibility = visible;
+			commit.style.visibility = "hidden";
+			copy.style.visibility = "visible";
 
 			code.innerHTML = last.last_guess;
 		}
@@ -95,17 +79,18 @@ commit.onclick = function() {
 
 	const guess_final = `${guess[0]}${guess[1]}${guess[2]}${guess[3]}${guess[4]}`;
 
-	const last = {
-		last_day: cur_date(),
-		last_guess: guess_final
-	};
-	
-	localStorage.setItem("last", JSON.stringify(last));
-
 	code.innerHTML = guess_final;
 
 	copy.style.visibility = "visible";
 	commit.style.visibility = "hidden";
+
+	const last = {
+		last_day: cur_date(),
+		last_guess: code.innerHTML
+	};
+	
+	localStorage.setItem("last", JSON.stringify(last));
+
 }
 
 copy.onclick = function() {
