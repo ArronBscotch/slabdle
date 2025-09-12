@@ -26,7 +26,7 @@ window.onload = function() {
 		const last = JSON.parse(last_play);
 
 		if (last.last_day == date_string) {
-			commit.style.visibility = "hidden";
+			commit.remove();
 			copy.style.visibility = "visible";
 
 			code.innerHTML = last.last_guess;
@@ -84,7 +84,7 @@ commit.onclick = function() {
 	code.innerHTML = guess_final;
 
 	copy.style.visibility = "visible";
-	commit.style.visibility = "hidden";
+	commit.remove();
 
 	const last = {
 		last_day: cur_date(),
@@ -98,8 +98,9 @@ commit.onclick = function() {
 copy.onclick = function() {
 	const emoji = code.innerHTML;
 	const moments = Math.floor(Math.random() * 11);
+	const moment_dot = Math.floor(Math.random() * 10) + 1;
 
-	const score = `${emoji} | Slabdle \n${cur_date()}\n\nGot in: ${moments} moments \n\nhttps://arronbscotch.github.io/slabdle/`;
+	const score = `${emoji} | Slabdle \n${cur_date()}\n\nGot in: ${moments}.${moment_dot} moments \n\nhttps://arronbscotch.github.io/slabdle/`;
 
 	navigator.clipboard.writeText(score);
 }
