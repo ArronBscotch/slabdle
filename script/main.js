@@ -65,6 +65,8 @@ commit.onclick = function() {
 
 	for (let i = 0; i < guess_string.length; i++) {
 		let cur = guess_string.charCodeAt(i) - 97;
+		console.log(cur);
+		console.log(keys);
 
 		if ((keys[i] - cur) == 0) {
 			guess.push(green);
