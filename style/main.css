@@ -1,9 +1,81 @@
-cssbody {
-	font-family: Arial, sans-serif;
+html {
+	height: 100vh;
+}
+
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Courier New', monospace;
 	text-align: center;
 	background-color: #171717;
+	height: 100vh;
 }
 
 #main {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
 	background-color: #2A2A2A;
+	width: 60%;
+	height: 100vh;
+}
+
+#guess-input {
+	width: 50%;
+	height: 56px;
+	margin: 0 auto;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #101010;
+	border-radius: 7px;
+	background-color: #171717;
+}
+
+button {
+	width: 30%;
+	height: 42px;
+	margin: 0 auto;
+	font-size: 24px;
+	border-width: 0px;
+	border-radius: 7px;
+	background-color: #343434;
+}
+
+button:hover {
+	background-color: #3F3F3F;
+}
+
+#code {
+	font-size: 32px;
+	margin-top: 48px;
+	margin-bottom: 48px;
+}
+
+h1 {
+	font-size: 72px;
+	margin-top: 32px;
+}
+
+h2 {
+	font-size: 32px;
+	margin-top: 8px;
+	margin-bottom: 48px;
+}
+
+input {
+	font-size: 32px;
+	text-align: center;
+}
+
+input:focus, textarea {
+	outline: non !important;
+}
+
+@media (max-width: 1000px) {
+	.center {
+		width: 100%;
+	}
 }
