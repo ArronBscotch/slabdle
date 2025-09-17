@@ -75,7 +75,7 @@ input:focus, textarea {
 	outline: none !important;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
 	#main {
 		width: vw;
 	}
