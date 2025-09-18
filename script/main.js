@@ -96,7 +96,7 @@ commit.onclick = function() {
 copy.onclick = function() {
 	const emoji = code.innerHTML;
 	const moments = Math.floor(Math.random() * 11);
-	const moment_dot = Math.floor(Math.random() * 10) + 1;
+	const moment_dot = Math.floor(Math.random() * 10);
 
 	const score = `${emoji} | Slabdle \n${cur_date()}\n\nGot in: ${moments}.${moment_dot} moments \n\nhttps://arronbscotch.github.io/slabdle/`;
 
