@@ -44,7 +44,7 @@ window.onload = function() {
 	hash &= 2147483647;
 
 	for (let i = 0; i < 5; i++) {
-		keys.push(((hash & 31) % 27));
+		keys.push(((hash & 31) % 26));
 		hash = hash >> 5;
 	}
 }
