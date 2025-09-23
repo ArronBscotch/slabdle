@@ -54,6 +54,11 @@ button:hover {
 #code {
 	font-size: 3rem;
 	margin-top: 48px;
+	margin-bottom: 2px;
+}
+
+#score {
+	font-size: 2.2rem;
 	margin-bottom: 48px;
 }
 

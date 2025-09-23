@@ -6,9 +6,11 @@ const guess_input = document.getElementById("guess-input");
 const commit = document.getElementById("commit");
 const copy = document.getElementById("copy");
 const code = document.getElementById("code");
+const score = document.getElementById("score");
 
 const keys = [];
 const guess = [];
+var score_val = 125;
 
 const body = document.getElementById("body");
 
@@ -17,21 +19,41 @@ function cur_date() {
 	return `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
 }
 
-window.onload = function() {
-	const date_string = cur_date();
+function update_score(guess_string) {
+	if (guess_string.length < 5) { return -1; }
+	guess_string = guess_string.toLowerCase();
 
-	const last_play = localStorage.getItem("last");
+	for (let i = 0; i < guess_string.length; i++) {
+		let cur = guess_string.charCodeAt(i) - 97;
 
-	if (last_play) {
-		const last = JSON.parse(last_play);
+		let dist = Math.abs(keys[i] - cur);
+		score_val -= dist;
 
-		if (last.last_day == date_string) {
-			commit.remove();
-			copy.style.visibility = "visible";
-
-			code.innerHTML = last.last_guess;
+		if (dist == 0) {
+			guess.push(green);
+		}
+		else if (dist <= 3) {
+			guess.push(blue);
+		}
+		else {
+			guess.push(red);
 		}
 	}
+
+	const guess_final = `${guess[0]}${guess[1]}${guess[2]}${guess[3]}${guess[4]}`;
+	
+	code.innerHTML = guess_final;
+	score.innerHTML = `Score: ${score_val}`;
+	score.style.visibility = "visible";
+
+	copy.style.visibility = "visible";
+	commit.remove();
+
+	return 0;
+}
+
+window.onload = function() {
+	const date_string = cur_date();
 
 	let hash = 0;
 
@@ -47,6 +69,16 @@ window.onload = function() {
 		keys.push(((hash & 31) % 26));
 		hash = hash >> 5;
 	}
+
+	const last_play = localStorage.getItem("last");
+
+	if (last_play) {
+		const last = JSON.parse(last_play);
+
+		if (last.last_day == date_string) {
+			update_score(last.last_guess);
+		}
+	}
 }
 
 guess_input.onkeypress = function(e) {
@@ -58,39 +90,20 @@ guess_input.onkeypress = function(e) {
 }
 
 commit.onclick = function() {
-	var guess_string = guess_input.value;
+	let guess_string = guess_input.value;
 
-	if (guess_string.length < 5) { return; }
-	guess_string = guess_string.toLowerCase();
+	let err = update_score(guess_string);
 
-	for (let i = 0; i < guess_string.length; i++) {
-		let cur = guess_string.charCodeAt(i) - 97;
-
-		if ((keys[i] - cur) == 0) {
-			guess.push(green);
-		}
-		else if (Math.abs(keys[i] - cur) <= 3) {
-			guess.push(blue);
-		}
-		else {
-			guess.push(red);
-		}
+	if (err == -1) {
+		return;
 	}
-
-	const guess_final = `${guess[0]}${guess[1]}${guess[2]}${guess[3]}${guess[4]}`;
-
-	code.innerHTML = guess_final;
-
-	copy.style.visibility = "visible";
-	commit.remove();
-
+	
 	const last = {
 		last_day: cur_date(),
-		last_guess: code.innerHTML
+		last_guess: guess_string
 	};
 	
 	localStorage.setItem("last", JSON.stringify(last));
-
 }
 
 copy.onclick = function() {
@@ -98,7 +111,7 @@ copy.onclick = function() {
 	const moments = Math.floor(Math.random() * 11);
 	const moment_dot = Math.floor(Math.random() * 10);
 
-	const score = `${emoji} | Slabdle \n${cur_date()}\n\nGot in: ${moments}.${moment_dot} moments \n\nhttps://arronbscotch.github.io/slabdle/`;
+	const score_str = `${emoji} | Slabdle \n${cur_date()}\nScore: ${score_val}\n\nGot in: ${moments}.${moment_dot} moments \n\nhttps://arronbscotch.github.io/slabdle/`;
 
-	navigator.clipboard.writeText(score);
+	navigator.clipboard.writeText(score_str);
 }
