@@ -43,7 +43,7 @@ function update_score(guess_string) {
 	const guess_final = `${guess[0]}${guess[1]}${guess[2]}${guess[3]}${guess[4]}`;
 	
 	code.innerHTML = guess_final;
-	score.innerHTML = `Score: ${score_val}`;
+	score.innerHTML = `Score: ${score_val}/125`;
 	score.style.visibility = "visible";
 
 	copy.style.visibility = "visible";
@@ -111,7 +111,7 @@ copy.onclick = function() {
 	const moments = Math.floor(Math.random() * 11);
 	const moment_dot = Math.floor(Math.random() * 10);
 
-	const score_str = `${emoji} | Slabdle \n${cur_date()}\nScore: ${score_val}\n\nGot in: ${moments}.${moment_dot} moments \n\nhttps://arronbscotch.github.io/slabdle/`;
+	const score_str = `${emoji} | Slabdle \n${cur_date()}\nScore: ${score_val}/125\n\nGot in: ${moments}.${moment_dot} moments \n\nhttps://arronbscotch.github.io/slabdle/`;
 
 	navigator.clipboard.writeText(score_str);
 }
