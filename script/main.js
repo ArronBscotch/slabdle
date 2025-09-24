@@ -47,6 +47,7 @@ function update_score(guess_string) {
 	score.style.visibility = "visible";
 
 	copy.style.visibility = "visible";
+	copy.style.display = "block";
 	commit.remove();
 
 	return 0;
