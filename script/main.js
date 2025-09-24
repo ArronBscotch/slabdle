@@ -90,6 +90,13 @@ guess_input.onkeypress = function(e) {
 	}
 }
 
+guess_input.keyup = function(e) {
+	e.preventDefault();
+	if (e.keyCode === 13) {
+		commit.click();
+	}
+}
+
 commit.onclick = function() {
 	let guess_string = guess_input.value;
 
